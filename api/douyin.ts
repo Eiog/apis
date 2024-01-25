@@ -115,14 +115,14 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
 ) {
-  const shareUrl: string = request.query.url || request.body.url
-  if (!shareUrl) {
-    return response.status(400).json({
-      statusCode: 400,
-      body: 'url is required',
-    })
-  }
   try {
+    const shareUrl: string = request.query.url || request.body.url
+    if (!shareUrl) {
+      return response.status(400).json({
+        statusCode: 400,
+        body: 'url is required',
+      })
+    }
     const url = await getUrlByShareUrl(shareUrl)
     const realUrl = await getRealUrlByShareUrl(url)
     const videoId = await getDouyinVideoIdByRealUrl(realUrl)
