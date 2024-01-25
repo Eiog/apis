@@ -9,9 +9,6 @@
   "homepage": "https://github.com/Eiog/node-server-starter",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "tsx watch src/node.ts",
-    "dev:h3": "tsx watch src/h3.ts",
-    "dev:express": "tsx watch src/express.ts",
     "dev:vercel": "tsx scripts/generate-router.ts && tsx watch scripts/vercel.dev.ts",
     "build": "rimraf dist && tsc",
     "start": "node dist/node.js",
@@ -25,14 +22,17 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
+    "axios": "^1.6.5",
     "express": "^4.18.2",
-    "h3": "^1.10.0"
+    "h3": "^1.10.0",
+    "object-path": "^0.11.8"
   },
   "devDependencies": {
     "@eiog/eslint-config-ts": "^0.0.2",
     "@eiog/ts-config": "^0.0.3",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.5",
+    "@types/object-path": "^0.11.4",
     "chalk": "^5.3.0",
     "commitlint": "^18.5.0",
     "consola": "^3.2.3",

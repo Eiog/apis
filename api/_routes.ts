@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { Router } from 'express'
-import hello from './hello.ts'
+import douyin from './douyin.ts'
 
 const router = Router()
-router.all('/hello', hello)
+router.all('/douyin', douyin)
 export default router
