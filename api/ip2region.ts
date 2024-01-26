@@ -13,7 +13,7 @@ interface address {
   city?: string
   ISP?: string
 }
-const dbPath = './public/ip2region.xdb'
+const dbPath = './ip2region.xdb'
 export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
