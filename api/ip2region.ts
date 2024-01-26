@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import Searcher from '../public/Searcher.js'
 
@@ -13,7 +14,7 @@ interface address {
   city?: string
   ISP?: string
 }
-const dbPath = './ip2region.xdb'
+const dbPath = resolve(__dirname, '../public/ip2region.xdb')
 export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
@@ -35,7 +36,7 @@ export default async function handler(
       city: data.region.split('|')[3],
       ISP: data.region.split('|')[4],
     }
-    response.send({ statusCode: 200, body: { ipData } })
+    response.send({ statusCode: 200, body: { ipData, dbPath } })
   }
   catch (error: any) {
     response.send({ statusCode: 200, body: { error: error.toString() } })
