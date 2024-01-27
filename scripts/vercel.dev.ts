@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 5631
 
 const app = express()
 app.use(express.json())
+// app.use(createProxyMiddleware('*', { target: 'http://127.0.0.1:7980' }))
 app.use('/api', routes)
 
 const server = createServer(app)
