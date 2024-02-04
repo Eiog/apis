@@ -1,4 +1,4 @@
-import { format, getInfo, validateUrl } from 'doydl'
+import { download, validateUrl } from 'doydl'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default async function handler(
@@ -13,10 +13,10 @@ export default async function handler(
         msg: 'invalid url',
       })
     }
-    const info = await getInfo(url)
-    return response.json({ code: 200, info, format: format(info) })
+    const stream = await download(url)
+    stream.pipe(response)
   }
   catch (error: any) {
-    response.json({ code: 400, data: error })
+    response.json({ code: 200, data: error })
   }
 }

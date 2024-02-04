@@ -1,4 +1,4 @@
-import { getInfo, validateURL } from 'ytdl-core'
+import ytdl, { validateURL } from 'ytdl-core'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 
@@ -15,8 +15,8 @@ export default async function handler(
         msg: 'invalid url',
       })
     }
-    const info = await getInfo(url, { requestOptions: { agent } })
-    response.json({ code: 200, info })
+    const stream = ytdl(url, { requestOptions: { agent } })
+    stream.pipe(response)
   }
   catch (error: any) {
     response.send({ code: 400, error })
