@@ -16,6 +16,7 @@ export default async function handler(
       })
     }
     const stream = ytdl(url, { requestOptions: { agent } })
+    response.setHeader('Content-Type', 'video/mp4')
     stream.pipe(response)
   }
   catch (error: any) {

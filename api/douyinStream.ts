@@ -14,6 +14,7 @@ export default async function handler(
       })
     }
     const stream = await download(url)
+    response.setHeader('Content-Type', 'video/mp4')
     stream.pipe(response)
   }
   catch (error: any) {
