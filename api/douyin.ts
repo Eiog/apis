@@ -17,19 +17,19 @@ export default async function handler(
     const url: string = request.query.url || request.body.url
     if (!url || !validateUrl(url)) {
       return response.status(400).json({
-        statusCode: 400,
-        body: 'invalid url',
+        code: 400,
+        msg: 'invalid url',
       })
     }
     const worker = new Worker(resolve(__dirname, '../public/worker.js'), { workerData: { event: 'douyin', data: { url } } })
-    worker.on('message', ({ status, data }: ListenerData) => {
-      return response.send({ statusCode: 200, status, body: data })
+    worker.on('message', ({ status, data, msg }: ListenerData) => {
+      return response.json({ code: 200, status, msg, data })
     })
     worker.on('exit', (code) => {
       console.log(`worker stopped with code ${code}`)
     })
   }
   catch (error: any) {
-    response.send({ statusCode: 200, body: { error: error.toString() } })
+    response.json({ code: 200, data: error })
   }
 }

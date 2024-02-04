@@ -62,7 +62,7 @@ async function douyin({ url }: EventMap['douyin']) {
     const path = `/douyin/${videoId}`
     if (await db.exists(path)) {
       const dbRes = await db.getObject<DBSchema>(path)
-      return parentPort?.postMessage({ status: 'success', data: JSON.stringify(dbRes) })
+      return parentPort?.postMessage({ status: 'success', data: dbRes })
     }
 
     const info = await getDouyinVideoDataByVideoId(videoId!)
@@ -71,10 +71,10 @@ async function douyin({ url }: EventMap['douyin']) {
     const publicDownloadUrl = bucketManager.publicDownloadUrl(publicBucketDomain, `douyin/${videoId}.mp4`)
     const dbSaveData = { url, status: 'success', id: format(info).vid, publicDownloadUrl, data: format(info) }
     await db.push(path, dbSaveData)
-    parentPort?.postMessage({ status: 'success', data: JSON.stringify(dbSaveData) })
+    parentPort?.postMessage({ status: 'success', data: dbSaveData })
   }
   catch (error) {
-    parentPort?.postMessage({ status: 'error', msg: JSON.stringify(error) })
+    parentPort?.postMessage({ status: 'error', msg: error })
   }
 }
 async function youtube({ url }: EventMap['youtube']) {
@@ -89,10 +89,10 @@ async function youtube({ url }: EventMap['youtube']) {
     const publicDownloadUrl = bucketManager.publicDownloadUrl(publicBucketDomain, `youtube/${videoId}.mp4`)
     const dbSaveData = { url, status: 'success', id: videoId, publicDownloadUrl, data: info }
     await db.push(path, dbSaveData)
-    parentPort?.postMessage({ status: 'success', data: JSON.stringify(dbSaveData) })
+    parentPort?.postMessage({ status: 'success', data: dbSaveData })
   }
   catch (error) {
-    parentPort?.postMessage({ status: 'error', msg: JSON.stringify(error) })
+    parentPort?.postMessage({ status: 'error', msg: error })
   }
 }
 function putOss(path: string, stream: Readable) {
