@@ -4,7 +4,7 @@ import type { Readable } from 'node:stream'
 import qiniu from 'qiniu'
 import { Config, JsonDB } from 'node-json-db'
 import { HttpsProxyAgent } from 'https-proxy-agent'
-import { downloadFromInfo, format, getDouyinVideoDataByVideoId, getDouyinVideoIdByRealUrl, getRealUrlByShortUrl, getShortUrlByShareUrl } from 'doydl'
+import { downloadFromInfo, format, getDouyinVideoDataByVideoId, getDouyinVideoIdByRealUrl, getRealUrlByShortUrl, getShortUrlByShareUrl } from 'douyin-dl'
 import { getInfo, getURLVideoID, downloadFromInfo as ytdlDownloadFromInfo } from 'ytdl-core'
 
 interface DBSchema {

@@ -1,4 +1,4 @@
-import { format, getInfo, validateUrl } from 'douyin-dl'
+import { download } from 'weibo-dl'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default async function handler(
@@ -6,15 +6,16 @@ export default async function handler(
   response: VercelResponse,
 ) {
   try {
-    const url: string = request.query.url || request.body.url
-    if (!url || !validateUrl(url)) {
+    const pid: string = request.query.pid || request.body.pid
+    if (!pid) {
       return response.status(400).json({
         code: 400,
-        msg: 'invalid url',
+        msg: 'invalid pid',
       })
     }
-    const info = await getInfo(url)
-    return response.json({ code: 200, info, format: format(info) })
+    const stream = download(pid)
+    response.setHeader('Content-Type', 'image/jpeg')
+    stream.pipe(response)
   }
   catch (error: any) {
     response.json({ code: 400, data: error })

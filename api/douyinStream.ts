@@ -1,4 +1,4 @@
-import { download, validateUrl } from 'doydl'
+import { download, validateUrl } from 'douyin-dl'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default async function handler(
